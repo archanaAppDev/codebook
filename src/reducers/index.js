@@ -1,0 +1,2 @@
+
+export { rootReducers } from './rootReducers';
