@@ -5,7 +5,7 @@ import { toast } from "react-toastify"
 //import { createOrder, getUser } from "../../../services";
 
 export const Checkout = ({ setCheckout }) => {
-    const { cartList, total, clearCart } = useAppContext();
+    const { state, clearCart } = useAppContext();
     const [user, setUser] = useState({});
     const navigate = useNavigate();
     const token = JSON.parse(sessionStorage.getItem("token"));
@@ -16,9 +16,9 @@ export const Checkout = ({ setCheckout }) => {
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
     }
     const order = {
-        cartList: cartList,
-        amount_paid: total,
-        quantity: cartList.length,
+        cartList: state.cart.cartList,
+        amount_paid: state.cart.total,
+        quantity: state.cart.cartList.length,
         user: {
             name: user.name,
             email: user.email,
@@ -115,7 +115,7 @@ export const Checkout = ({ setCheckout }) => {
                                     <input type="number" name="code" id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white" value="523" disabled required="" />
                                 </div>
                                 <p className="mb-4 text-2xl font-semibold text-lime-500 text-center">
-                                    ${total}
+                                    ${state.cart.total}
                                 </p>
                                 <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700" >
                                     <i className="mr-2 bi bi-lock-fill"></i>PAY NOW

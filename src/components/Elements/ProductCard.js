@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { FilterBar } from '../../pages/Products/components/FilterBar'
 import { Rating } from './Rating'
 import { useAppContext } from '../../context'
 import { useEffect, useState } from 'react'

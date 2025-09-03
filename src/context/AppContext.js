@@ -105,6 +105,7 @@ export const AppProvider = ({ children }) => {
         processedList = rating(processedList);
         return processedList;
     }, [state.filter]);
+
     const value = {
         state,
         dispatch,
@@ -121,7 +122,6 @@ export const AppProvider = ({ children }) => {
         </AppContext.Provider>
     );
 };
-
 export const useAppContext = () => {
     return useContext(AppContext);
 };

@@ -5,12 +5,12 @@ import { useAppContext } from "../context";
 export const ProductDetail = () => {
     const [product, setProduct] = useState({});
     const { id } = useParams();
-    const { cartList, addToCart, removeFromCart } = useAppContext();
+    const { state, addToCart, removeFromCart } = useAppContext();
     const [inCart, setInCart] = useState(false);
 
     useEffect(() => {
-        cartList.find(item => item.id === product.id) ? setInCart(true) : setInCart(false);
-    }, [cartList, product.id]);
+        state.cart.cartList.find(item => item.id === product.id) ? setInCart(true) : setInCart(false);
+    }, [state.cart.cartList, product.id]);
 
     useEffect(() => {
         const fetchProduct = async () => {
