@@ -1,5 +1,6 @@
-import { createContext, useContext, useReducer, useMemo } from "react";
+import { createContext, useContext, useReducer, useMemo, useCallback } from "react";
 import { rootReducers } from "../reducers";
+import { type } from "@testing-library/user-event/dist/type";
 
 const rootInitialState = {
     cart: {
@@ -56,16 +57,14 @@ export const AppProvider = ({ children }) => {
         });
     }
 
-    function initialProductList(products) {
+    const initialProductList = useCallback((products) => {
         dispatch({
             type: "PRODUCT_LIST",
             payload: {
                 products: products
             }
-
         });
-
-    }
+    }, [dispatch]);
 
 
     function bestSeller(products) {
@@ -124,4 +123,4 @@ export const AppProvider = ({ children }) => {
 };
 export const useAppContext = () => {
     return useContext(AppContext);
-};
+};  
