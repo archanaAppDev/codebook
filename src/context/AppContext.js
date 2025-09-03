@@ -13,6 +13,10 @@ const rootInitialState = {
         bestSellerOnly: false,
         sortBy: null,
         ratings: null
+    },
+    user: {
+        isLoggedIn: false,
+        userInfo: null
     }
 };
 
@@ -105,6 +109,21 @@ export const AppProvider = ({ children }) => {
         return processedList;
     }, [state.filter]);
 
+    function userLoggedInDetail(userInfo) {
+        dispatch({
+            type: "LOGIN",
+            payload: userInfo
+
+        })
+
+    }
+
+    function userDetail() {
+        dispatch({
+            type: "GET_USER_DETAIL"
+        })
+    }
+
     const value = {
         state,
         dispatch,
@@ -112,7 +131,9 @@ export const AppProvider = ({ children }) => {
         removeFromCart,
         clearCart,
         initialProductList,
-        filteredProductList
+        filteredProductList,
+        userLoggedInDetail,
+        userDetail
     };
 
     return (

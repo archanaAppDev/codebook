@@ -9,7 +9,6 @@ export const ProductList = () => {
     const { filteredProductList, initialProductList } = useAppContext();
     const search = useLocation().search;
 
-
     const searchTerm = new URLSearchParams(search).get("q");
     useEffect(() => {
         const fetchProducts = async () => {
