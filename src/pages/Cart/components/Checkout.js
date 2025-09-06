@@ -2,78 +2,36 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../context";
 import { toast } from "react-toastify"
-//import { createOrder, getUser } from "../../../services";
+import { createOrder, getUser } from "../../../services/dataService";
 
 export const Checkout = ({ setCheckout }) => {
     const { state, clearCart } = useAppContext();
     const [user, setUser] = useState({});
     const navigate = useNavigate();
-    const token = JSON.parse(sessionStorage.getItem("token"));
-    const cbid = JSON.parse(sessionStorage.getItem("cbid"));
 
-    const params = {
-        method: "GET",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
-    }
-    const order = {
-        cartList: state.cart.cartList,
-        amount_paid: state.cart.total,
-        quantity: state.cart.cartList.length,
-        user: {
-            name: user.name,
-            email: user.email,
-            id: user.id
-        }
-    }
-    const orderParams = {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify(order)
-    }
 
     useEffect(() => {
 
-        async function getUser() {
-            try {
-                const response = await fetch(`http://localhost:8000/600/users/${cbid}`, params);
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch user data');
-                }
-
-                const data = await response.json();
-                setUser(data);
-
-            } catch (error) {
-                console.error("Fetch error: ", error);
-
-                toast.error("Failed to fetch user data");
-            }
-
+        async function fetchUserData() {
+            const data = await getUser();
+            setUser(data);
         }
-        getUser();
+        fetchUserData();
     }, []);
 
     async function handleOrderSubmit(event) {
         event.preventDefault();
 
-        // try {
-        //     const data = await createOrder(cartList, total, user);
-        //     clearCart();
-        //     navigate("/order-summary", { state: { data: data, status: true } });
-        // } catch (error) {
-        //     navigate("/order-summary", { state: { status: false } });
-        // }
-        const response = await fetch(`http://localhost:8000/660/orders`, orderParams);
-
-        if (response.ok) {
-            const data = await response.json();
+        try {
+            const data = await createOrder(state, user);
             clearCart();
+            debugger;
             navigate("/order-summary", { state: { data: data, status: true } });
-
-        } else {
+        } catch (error) {
+            debugger;
             navigate("/order-summary", { state: { status: false } });
         }
+
     }
 
     return (
