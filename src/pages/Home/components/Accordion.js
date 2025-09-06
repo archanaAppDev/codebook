@@ -3,9 +3,6 @@ import React from 'react'
 export const Accordion = ({ faq }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
-    const toggleAccordion = () => {
-        setIsOpen(!isOpen);
-    };
 
     return (
         <div>

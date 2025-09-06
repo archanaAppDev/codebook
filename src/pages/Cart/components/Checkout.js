@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../context";
-import { toast } from "react-toastify"
 import { createOrder, getUser } from "../../../services/dataService";
 
 export const Checkout = ({ setCheckout }) => {
