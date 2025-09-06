@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import { HomePage, ProductList, ProductDetail, Login, Register, CartPage, OrderPage, DashBoardPage } from "../pages"
+import { HomePage, ProductList, ProductDetail, Login, Register, CartPage, OrderPage } from "../pages"
 import { ProtectedRoute } from "./ProtectedRoute"
 import { OrderHistory } from "../pages/Order/component/OrderHistory"
 

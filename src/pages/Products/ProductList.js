@@ -1,21 +1,16 @@
 import { ProductCard } from '../../components/Elements/ProductCard'
 import { useEffect, useState } from 'react';
 import { FilterBar } from "./components/FilterBar";
-import { useLocation } from 'react-router-dom';
 import { useAppContext } from '../../context';
 export const ProductList = () => {
     const [show, setShow] = useState(false);
-    const [loading, setLoading] = useState(true);
     const { filteredProductList, initialProductList } = useAppContext();
-    const search = useLocation().search;
 
-    const searchTerm = new URLSearchParams(search).get("q");
     useEffect(() => {
         const fetchProducts = async () => {
             const response = await fetch("http://localhost:8000/products");
             const data = await response.json();
             initialProductList(data);
-            setLoading(false);
         };
         fetchProducts();
     }, [initialProductList]);
